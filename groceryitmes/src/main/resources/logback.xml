@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%thread] %-5level %-50logger{40} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <timestamp key="Date" datePattern="yyyy-MM-dd" />
+     <property name="LOG_DIR" value="D:/Grocery_Logs" />
+     <property name="DEF_MODULE" value="groceryItems" />
+     <appender name="RollingFile" class="ch.qos.logback.classic.sift.SiftingAppender">
+		 <discriminator>
+			 <key>module</key>
+			 <defaultValue>${DEF_MODULE}</defaultValue>
+		 </discriminator>
+	
+	 <sift>
+    <appender name="RollingFile-${module}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+     <!--<file>${LOG_DIR}/${Date}/${module}.log</file>-->
+        <encoder>
+            <pattern>%d [%thread] %-5level %-50logger{40} - %msg%n</pattern>
+        </encoder>
+         
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/%d{yyyy-MM-dd}/${module}.%i.log</fileNamePattern>
+            <maxFileSize>500MB</maxFileSize>
+            <!--<maxHistory>30</maxHistory>-->
+            <!--<totalSizeCap>10MB</totalSizeCap>-->
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+    </appender>
+     </sift>
+      </appender>
+    <root level="INFO">
+        <appender-ref ref="Console" />
+        <appender-ref ref="RollingFile" />
+    </root>
+</configuration>

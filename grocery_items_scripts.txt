@@ -1,0 +1,34 @@
+CREATE TABLE grocery_items
+(
+   id                   integer      DEFAULT nextval('grocery_itmes_id_seq'::regclass) NOT NULL,
+   name                 varchar,
+   category             varchar,
+   price                numeric,
+   availability_status  varchar(1),
+   booking_status       varchar(1),
+   total_inventory      integer
+);
+
+ALTER TABLE grocery_items
+   ADD CONSTRAINT grocery_itmes_pkey
+   PRIMARY KEY (id);
+
+
+INSERT INTO grocery_items
+(
+  name,
+  category,
+  price,
+  availability_status,
+  booking_status,
+  total_inventory
+)
+VALUES
+(
+  'Product',
+  'Category',
+  100,
+  'Y',
+  'Y',
+  100
+);
